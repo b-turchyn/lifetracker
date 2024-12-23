@@ -4,14 +4,17 @@ require "pry"
 
 api = API.new
 
-get "/" do
-  File.read("frontend.html")
-end
+set :bind, '0.0.0.0'
+set :public_folder, 'frontend/'
 
 def json_response
   content_type 'application/json'
-  response['Access-Control-Allow-Origin'] = 'http://127.0.0.1:8000'
-  headers 'Access-Control-Allow-Origin' => 'http://127.0.0.1:8000'
+  # response['Access-Control-Allow-Origin'] = 'http://127.0.0.1:8000'
+  # headers 'Access-Control-Allow-Origin' => 'http://127.0.0.1:8000'
+end
+
+get "/" do
+  File.read("frontend/frontend.html")
 end
 
 get "/data" do

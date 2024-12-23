@@ -30,6 +30,7 @@ module Importers
             timestamp_to_use -= 60 * 60 * 3 if is_on_west_coast
             timestamp_date = Time.at(timestamp_to_use)
           rescue => ex
+            puts ex
             puts "No location for that specific day to offset the time zone for this mood entry..."
           end
         end

@@ -1,4 +1,4 @@
-const host = 'http://127.0.0.1:8080';
+const host = '';
 let keys = [];
 
 function loadKeys(callback) {
@@ -91,23 +91,15 @@ function getGitHubData(key, year) {
 
 function updateKeyForIndex(key) {
     document.getElementById(`keys-0`).value = key;
-    getGitHubData(key, 2021)
-    setTimeout(function() { getGitHubData(key, 2020) }, 200);
-    setTimeout(function() { getGitHubData(key, 2019) }, 600);
-    setTimeout(function() { getGitHubData(key, 2018) }, 900);
-    setTimeout(function() { getGitHubData(key, 2017) }, 1300);
-    setTimeout(function() { getGitHubData(key, 2016) }, 1600);
-    setTimeout(function() { getGitHubData(key, 2015) }, 1900);
+    getGitHubData(key, 2025)
+    getGitHubData(key, 2024)
+    getGitHubData(key, 2023)
 }
 
 function reloadIndex() {
-    getGitHubData(document.getElementById(`keys-0`).value, 2021)
-    setTimeout(function() { getGitHubData(document.getElementById(`keys-0`).value, 2020) }, 200);
-    setTimeout(function() { getGitHubData(document.getElementById(`keys-0`).value, 2019) }, 600);
-    setTimeout(function() { getGitHubData(document.getElementById(`keys-0`).value, 2018) }, 900);
-    setTimeout(function() { getGitHubData(document.getElementById(`keys-0`).value, 2017) }, 1300);
-    setTimeout(function() { getGitHubData(document.getElementById(`keys-0`).value, 2016) }, 1600);
-    setTimeout(function() { getGitHubData(document.getElementById(`keys-0`).value, 2015) }, 1900);
+    getGitHubData(document.getElementById(`keys-0`).value, 2025)
+    getGitHubData(document.getElementById(`keys-0`).value, 2024)
+    getGitHubData(document.getElementById(`keys-0`).value, 2023)
 }
 
 function httpGetAsync(theUrl, callback) {

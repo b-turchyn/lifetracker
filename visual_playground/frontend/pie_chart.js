@@ -1,4 +1,4 @@
-const host = 'http://127.0.0.1:8080';
+const host = '';
 let keys = [];
 let yearsData = {}
 const allYearsToUse = [2016, 2017, 2018, 2019, 2020, 2021, 2022];
