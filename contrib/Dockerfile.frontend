@@ -1,0 +1,15 @@
+FROM ruby:3.1
+
+RUN apt-get update -qq && apt-get install -y build-essential libpq-dev
+WORKDIR /app
+COPY ../visual_playground/Gemfile* .
+RUN mkdir ruby_importers
+COPY ../ruby_importers/Gemfile* ruby_importers
+RUN bundle
+WORKDIR ruby_importers
+RUN bundle
+COPY ../visual_playground /app
+COPY ../ruby_importers /app/ruby_importers
+WORKDIR /app
+EXPOSE 4567
+CMD bundle exec ruby server.rb

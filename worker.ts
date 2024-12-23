@@ -115,26 +115,33 @@ function printGraph(
       }
 
       // Generate the graph
-      // if (!skipImage) {
-      //   minimum -= 2;
-      //   maximum += 2;
+      // Google's chart API has been sent to a farm up state
+      if (false && !skipImage) {
+        minimum -= 2;
+        maximum += 2;
 
-      //   let url =
-      //     "https://chart.googleapis.com/chart?cht=lc&chd=t:" +
-      //     allValues.join(",") +
-      //     "&chs=800x350&chl=" +
-      //     allTimes.join("%7C") +
-      //     "&chtt=" +
-      //     key +
-      //     "&chf=bg,s,e0e0e0&chco=000000,0000FF&chma=30,30,30,30&chds=" +
-      //     minimum +
-      //     "," +
-      //     maximum;
-      //   console.log(url);
-      //   ctx.replyWithPhoto({
-      //     url: url
-      //   });
-      // }
+        let url =
+          "https://chart.googleapis.com/chart?cht=lc&chd=t:" +
+          allValues.join(",") +
+          "&chs=800x350&chl=" +
+          allTimes.join("%7C") +
+          "&chtt=" +
+          key +
+          "&chf=bg,s,e0e0e0&chco=000000,0000FF&chma=30,30,30,30&chds=" +
+          minimum +
+          "," +
+          maximum;
+        console.log(url);
+        try {
+          ctx.replyWithPhoto({
+            url: url
+          }).catch(e => {
+            console.error("Couldn't send photo", e)
+          });
+        } catch(e) {
+          console.error(e);
+        }
+      }
 
       if (numberOfRecentValuesToPrint > 0) {
         // Now render the week/month/quarter/year average
