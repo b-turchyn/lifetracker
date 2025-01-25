@@ -17,5 +17,4 @@ client.query("SELECT NOW()", (err, res) => {
   console.log(err, res);
 });
 
-module.exports.client = client;
-export {};
+export default client;

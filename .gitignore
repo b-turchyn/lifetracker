@@ -3,6 +3,7 @@ credentials.json
 .DS_STORE
 node_modules
 deprecated_importers/moves/daily
+dist/
 *csv
 *tsv
 checkins.json
@@ -22,3 +23,4 @@ checkins.json
 /visual_playground/frontend/tracks_just_to_test.json
 /manual_graph/_cache.json
 /ruby_importers/importers/spotify/full-archive
+tags

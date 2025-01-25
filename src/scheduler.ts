@@ -1,7 +1,8 @@
-var cron = require("node-cron");
-var moment = require("moment");
-var config = require("./classes/config.js");
-var postgres = require("./classes/postgres.js");
+import cron from 'node-cron';
+import moment from 'moment';
+import { userConfig } from './classes/config';
+import postgres from './classes/postgres';
+
 var telegram = require("./classes/telegram.js");
 
 cron.schedule(`0 * * * *`, async () => {
@@ -23,14 +24,14 @@ cron.schedule(`0 * * * *`, async () => {
           var currentRow = rows[i];
           var command = currentRow.command;
           var lastRun = moment(Number(currentRow.last_run));
-          if (config.userConfig[command] == null) {
+          if (userConfig[command] == null) {
             console.error(
               "Error, command not found, means it's not on the last run sheet, probably due to renaming a command: " +
                 command
             );
             break;
           }
-          var scheduleType = config.userConfig[command].schedule;
+          var scheduleType = userConfig[command].schedule;
           var timeDifferenceHours = moment().diff(moment(lastRun), "hours");
           var shouldRemindUser = false;
           if (scheduleType == "eightTimesADay") {
