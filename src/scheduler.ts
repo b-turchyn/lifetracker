@@ -10,7 +10,7 @@ cron.schedule(`0 * * * *`, async () => {
 
   // timeout to load the JSON file
   setTimeout(function() {
-    postgres.client.query(
+    postgres.query(
       {
         text: "SELECT * FROM last_run",
       },
@@ -87,7 +87,7 @@ cron.schedule(`0 * * * *`, async () => {
               process.env.TELEGRAM_CHAT_ID,
               textToSend
             );
-            postgres.client.query(
+            postgres.query(
               {
                 text:
                   "UPDATE last_run SET last_message = $1 where command = $2",
