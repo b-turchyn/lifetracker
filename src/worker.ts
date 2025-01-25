@@ -2,10 +2,11 @@
 const moment = require("moment");
 var needle = require("needle");
 const { Router, Markup, Extra } = require("telegraf");
+import postgres from './classes/postgres';
+
 
 // Internal dependencies
 let config = require("./classes/config.js");
-let postgres = require("./classes/postgres.js");
 let telegram = require("./classes/telegram.js");
 
 import { Command, QuestionToAsk } from "./classes/config.js";
@@ -57,7 +58,7 @@ function printGraph(
   additionalValue,
   skipImage
 ) {
-  postgres.client.query(
+  postgres.query(
     {
       text:
         "SELECT * FROM raw_data WHERE key = $1 ORDER BY timestamp DESC LIMIT 300",
@@ -206,7 +207,7 @@ function printGraph(
 
         console.log(queryToUse);
 
-        postgres.client.query(
+        postgres.query(
           {
             text: queryToUse
           },
@@ -397,7 +398,7 @@ function insertNewValue(parsedUserValue, ctx, key, type, fakeDate = null) {
     Importid: null
   };
 
-  postgres.client.query(
+  postgres.query(
     {
       text:
         "INSERT INTO raw_data (" +
@@ -552,7 +553,7 @@ function sendAvailableCommands(ctx) {
 }
 
 function saveLastRun(command) {
-  postgres.client.query(
+  postgres.query(
     {
       text:
         "insert into last_run (command, last_run) VALUES ($1, $2) on conflict (command) do update set last_run = $2",
