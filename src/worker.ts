@@ -13,8 +13,8 @@ import { Command, QuestionToAsk } from "./classes/config.js";
 let bot = telegram.bot;
 
 // State
-var currentlyAskedQuestionObject: QuestionToAsk = null;
-var currentlyAskedQuestionMessageId: String = null; // The Telegram message ID reference
+var currentlyAskedQuestionObject: QuestionToAsk;
+var currentlyAskedQuestionMessageId: String | null = null; // The Telegram message ID reference
 let currentlyAskedQuestionQueue: Array<QuestionToAsk> = []; // keep track of all the questions about to be asked
 
 initBot();
@@ -80,7 +80,7 @@ function printGraph(
       let maximum = 0;
       for (let i = 0; i < rows.length; i++) {
         let time = moment(Number(rows[i].timestamp));
-        let value = Number(rows[i].value);
+        let value: number = Number(rows[i].value);
         allValues.unshift(value);
         allTimes.unshift(time.format("MM-DD"));
 
@@ -372,7 +372,7 @@ function insertNewValue(parsedUserValue, ctx, key, type, fakeDate = null) {
   } else {
     dateToAdd = moment(ctx.update.message.date * 1000);
   }
-  let questionText = null;
+  let questionText: string;
   if (currentlyAskedQuestionObject) {
     questionText = currentlyAskedQuestionObject.question;
   }
@@ -457,7 +457,7 @@ function parseUserInput(ctx, text = null) {
     userValue = ctx.match[1];
   }
 
-  let parsedUserValue = null;
+  let parsedUserValue: number | null = null;
 
   if (currentlyAskedQuestionObject.type != "text") {
     // First, see if it starts with emoji number, for which we have to do custom
@@ -546,7 +546,7 @@ function parseUserInput(ctx, text = null) {
 function sendAvailableCommands(ctx) {
   ctx.reply("Available commands:").then(({ message_id }) => {
     ctx.reply(
-      "\n\n/skip\n/report\n\n/" + Object.keys(config.userConfig).join("\n/")
+      "\n\n/skip\n\n/" + Object.keys(config.userConfig).join("\n/")
     );
   });
 }
@@ -620,7 +620,7 @@ function initBot() {
         toTrack
     );
 
-    let questionToAsk: QuestionToAsk = null;
+    let questionToAsk: QuestionToAsk | undefined = undefined;
 
     Object.keys(config.userConfig).forEach(function(key) {
       var survey = config.userConfig[key];

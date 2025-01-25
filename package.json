@@ -1,5 +1,7 @@
 {
     "scripts": {
+      "build": "tsc",
+      "build:watch": "tsc --watch",
         "prettier": "prettier worker.ts web.ts classes/*.ts --write",
         "typescript": "tsc --p tsconfig.json",
         "dev": "source .keys && npm run prettier && npm run typescript && heroku local",
@@ -13,10 +15,11 @@
         "node-cron": "^3.0.2",
         "pg": "^8.7.1",
         "prettier": "^1.19.1",
-        "telegraf": "^3.36.0",
-        "typescript": "^3.8.3"
+        "telegraf": "^3.36.0"
     },
     "devDependencies": {
-        "@types/node": "~16.0.0"
-    }
+        "@types/node": "~22.10.10",
+        "typescript": "^5.7.3"
+    },
+    "version": "^22.13.1"
 }

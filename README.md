@@ -209,11 +209,18 @@ This will trigger questions that take longer to reply, so they're only done week
 
 ## Telegram
 
+### Create Your Telegram Bot
+
+1. Start a private chat with [BotFather](https://telegram.me/BotFather) and run
+   the `/newbot` command. Follow the prompts to enter its display name and
+   unique username. You will be provided with your API key, which should be
+   entered into the `TELEGRAM_BOT_TOKEN` environment variable.
+
+
 ### Insert for available commands
 
 ```
 skip - Skip a question that was asked
-report - Generate one page report
 track - Track a specific value only
 mood - Track your mood
 awake - First thing in the morning

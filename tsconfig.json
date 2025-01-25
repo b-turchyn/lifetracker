@@ -5,10 +5,15 @@
     "removeComments": true,
     "preserveConstEnums": true,
     "sourceMap": true,
-    "types": ["node"]
+    "types": ["node"],
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": false
   },
-  "include": ["**/*.ts"],
-  "exclude": ["node_modules", "**/*.spec.ts"],
+  "include": ["src/**/*.ts"],
+  //"exclude": ["node_modules", "**/*.spec.ts"],
   "types": [ "node" ],
   "typeRoots": [ "../node_modules/@types" ]
 }
