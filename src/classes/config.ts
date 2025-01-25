@@ -1,4 +1,14 @@
 import needle from 'needle';
+import { URL } from 'url';
+
+const isValidUrl = (s) => {
+    try {
+      new URL(s);
+      return true;
+    } catch (err) {
+      return false;
+    }
+  };
 
 // Interfaces
 interface Command {
@@ -18,16 +28,20 @@ interface QuestionToAsk {
 let userConfig: { [key: string]: Command };
 let url: string | undefined = process.env.LIFESHEET_JSON_URL;
 if (url) {
-  console.log("Loading remote JSON config...");
-  needle.get(url, function(error, response, body) {
-    userConfig = body;
+  if (isValidUrl(url)) {
+    console.log("Loading remote JSON config...");
+    needle.get(url, function(error, response, body) {
+      userConfig = body;
+      console.log("Successfully loaded remote user config");
+    });
+  } else {
+    console.log(`Loading local user config at ${url}...`);
+    userConfig = require(url);
     console.log("Successfully loaded remote user config");
-    module.exports.userConfig = userConfig;
-  });
+  }
 } else {
   userConfig = require("../lifesheet.json");
   console.log("Successfully loaded user config");
-  module.exports.userConfig = userConfig;
 }
 
 export { Command, QuestionToAsk, userConfig };
