@@ -1,3 +1,4 @@
+import * as fs from 'fs';
 import needle from 'needle';
 import { URL } from 'url';
 
@@ -26,21 +27,18 @@ interface QuestionToAsk {
 }
 
 let userConfig: { [key: string]: Command };
-let url: string | undefined = process.env.LIFESHEET_JSON_URL;
-if (url) {
-  if (isValidUrl(url)) {
-    console.log("Loading remote JSON config...");
-    needle.get(url, function(error, response, body) {
-      userConfig = body;
-      console.log("Successfully loaded remote user config");
-    });
-  } else {
-    console.log(`Loading local user config at ${url}...`);
-    userConfig = require(url);
+let configUrl: string | undefined = process.env.LIFETRACKER_JSON_URL;
+let configPath: string = process.env.LIFETRACKER_JSON_PATH || "../lifesheet.json";
+
+if (configUrl && isValidUrl(configUrl)) {
+  console.log("Loading remote JSON config...");
+  needle.get(configUrl, function(error, response, body) {
+    userConfig = body;
     console.log("Successfully loaded remote user config");
-  }
+  });
 } else {
-  userConfig = require("../lifesheet.json");
+  console.log(`Loading local user config at ${configPath}...`);
+  userConfig = JSON.parse(fs.readFileSync(configPath).toString());
   console.log("Successfully loaded user config");
 }
 
